@@ -1,0 +1,1 @@
+ls-meteo is a weather forecast app, created with React.
