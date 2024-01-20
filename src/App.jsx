@@ -11,6 +11,7 @@ function App() {
 
   const [location, setLocation] = useState('')
   const [formData, setFormData] = useState('')
+  const [weatherData, setWeatherData] = useState(null)
 
   useEffect(() => {
     fetch(`https://api.weatherapi.com/v1/current.json?key=69c788fac5954f2cb8e94409242001&q=${location}&aqi=no`)
@@ -20,7 +21,16 @@ function App() {
         }
         return res.json()
       })
-      .then(data => console.log(data))
+      .then(data => {
+        // console.log(data)
+        const weather = {
+          location: data.location.name,
+          date: data.location.localtime,
+          temperatureCelsius: data.current.temp_c,
+          feelsLike: data.current.feelslike_c
+        }
+        setWeatherData(weather)
+    })
   }, [formData])
 
   const handleSubmit = e => {
@@ -43,11 +53,19 @@ function App() {
             id='location'
             name='location'
             onChange={handleChange}
+            size='md'
           />
           <Button type='submit'>Submit</Button>
         </Form.Group>        
       </Form>
-      <h2>{formData}</h2>
+      {weatherData && 
+        <div>
+          <div>Location is {weatherData.location}</div>
+          <div>Date is {weatherData.date}</div>
+          <div>Temperature is {weatherData.temperatureCelsius}</div>
+          <div>Feels like {weatherData.feelsLike}</div>
+        </div>
+      }
     </>
   )
 }
