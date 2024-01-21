@@ -11,10 +11,11 @@ function App() {
 
   const [location, setLocation] = useState('')
   const [formData, setFormData] = useState('')
-  const [weatherData, setWeatherData] = useState(null)
+  const [weatherData, setWeatherData] = useState({})
+  const [forecastData, setForecastData] = useState([])
 
   useEffect(() => {
-    fetch(`https://api.weatherapi.com/v1/forecast.json?key=69c788fac5954f2cb8e94409242001&q=${location}&aqi=no&alerts=no`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=69c788fac5954f2cb8e94409242001&q=${location}&days=3&aqi=no&alerts=no`)
       .then(res => {
         if(!res.ok) {
           throw Error('weather data not available')
@@ -22,7 +23,7 @@ function App() {
         return res.json()
       })
       .then(data => {
-        console.log(data)
+        // console.log(data)
         const weather = {
           location: data.location.name,
           date: new Date(data.forecast.forecastday[0].date_epoch * 1000).toDateString(),
@@ -35,9 +36,20 @@ function App() {
           windKph: data.current.wind_kph,
           windDir: data.current.wind_dir,
         }
+        const forecast = data.forecast.forecastday.map(element => {
+          return {
+            date: element.date_epoch,
+            condition: element.day.condition.icon,
+            maxTemp: element.day.maxtemp_c,
+            minTemp: element.day.mintemp_c
+          }
+        })
         setWeatherData(weather)
+        setForecastData(forecast)
     })
   }, [formData])
+
+  console.log(forecastData)
 
   const handleSubmit = e => {
     e.preventDefault()
