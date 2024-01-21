@@ -14,7 +14,7 @@ function App() {
   const [weatherData, setWeatherData] = useState(null)
 
   useEffect(() => {
-    fetch(`https://api.weatherapi.com/v1/current.json?key=69c788fac5954f2cb8e94409242001&q=${location}&aqi=no`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=69c788fac5954f2cb8e94409242001&q=${location}&aqi=no&alerts=no`)
       .then(res => {
         if(!res.ok) {
           throw Error('weather data not available')
@@ -22,12 +22,18 @@ function App() {
         return res.json()
       })
       .then(data => {
-        // console.log(data)
+        console.log(data)
         const weather = {
           location: data.location.name,
-          date: data.location.localtime,
+          date: new Date(data.forecast.forecastday[0].date_epoch * 1000).toDateString(),
+          condition: data.current.condition.text,
+          sunrise: data.forecast.forecastday[0].astro.sunrise,
+          sunset: data.forecast.forecastday[0].astro.sunset,
+          conditionIcon: data.current.condition.icon,
           temperatureCelsius: data.current.temp_c,
-          feelsLike: data.current.feelslike_c
+          feelsLike: data.current.feelslike_c,
+          windKph: data.current.wind_kph,
+          windDir: data.current.wind_dir,
         }
         setWeatherData(weather)
     })
@@ -45,7 +51,7 @@ function App() {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Form.Group>
+        <Form.Group className='form-group'>
           <Form.Label><Geo /> Location <Geo /></Form.Label>
           <Form.Control 
             type='text' 
@@ -55,15 +61,21 @@ function App() {
             onChange={handleChange}
             size='md'
           />
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' variant='outline-info'>Submit</Button>
         </Form.Group>        
       </Form>
       {weatherData && 
         <div>
-          <div>Location is {weatherData.location}</div>
-          <div>Date is {weatherData.date}</div>
-          <div>Temperature is {weatherData.temperatureCelsius}</div>
-          <div>Feels like {weatherData.feelsLike}</div>
+          <div>{weatherData.location}</div>
+          <div>{weatherData.date}</div>
+          <div>Temperature is {weatherData.temperatureCelsius} °C</div>
+          <div>Feels like {weatherData.feelsLike} °C</div>
+          <div>
+             {weatherData.condition}
+            <img src={`${weatherData.conditionIcon}`} />
+          </div>
+          <div>Sunrise: {weatherData.sunrise} / Sunset: {weatherData.sunset}</div>
+          <div>{weatherData.windKph} km/h wind, direction {weatherData.windDir}</div>
         </div>
       }
     </>
