@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import ListGroup from 'react-bootstrap/ListGroup'
 import { Geo } from 'react-bootstrap-icons'
 
 import './App.css'
@@ -11,7 +12,7 @@ function App() {
 
   const [location, setLocation] = useState('')
   const [formData, setFormData] = useState('')
-  const [weatherData, setWeatherData] = useState({})
+  const [weatherData, setWeatherData] = useState(null)
   const [forecastData, setForecastData] = useState([])
 
   useEffect(() => {
@@ -61,7 +62,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className='body'>
       <Form onSubmit={handleSubmit}>
         <Form.Group className='form-group'>
           <Form.Label><Geo /> Location <Geo /></Form.Label>
@@ -72,25 +73,25 @@ function App() {
             name='location'
             onChange={handleChange}
             size='md'
+            className='search-bar'
           />
           <Button type='submit' variant='outline-info'>Submit</Button>
         </Form.Group>        
       </Form>
       {weatherData && 
-        <div>
-          <div>{weatherData.location}</div>
-          <div>{weatherData.date}</div>
-          <div>Temperature is {weatherData.temperatureCelsius} °C</div>
-          <div>Feels like {weatherData.feelsLike} °C</div>
-          <div>
+        <ListGroup>
+          <ListGroup.Item className='list-color'><span>{weatherData.location}</span><span>{weatherData.date}</span></ListGroup.Item>
+          <ListGroup.Item className='list-color'>Temperature is {weatherData.temperatureCelsius} °C</ListGroup.Item>
+          <ListGroup.Item className='list-color'>Feels like {weatherData.feelsLike} °C</ListGroup.Item>
+          <ListGroup.Item className='list-color'>
              {weatherData.condition}
-            <img src={`${weatherData.conditionIcon}`} />
-          </div>
-          <div>Sunrise: {weatherData.sunrise} / Sunset: {weatherData.sunset}</div>
-          <div>{weatherData.windKph} km/h wind, direction {weatherData.windDir}</div>
-        </div>
+            <img className='condition-icon' src={`${weatherData.conditionIcon}`} />
+          </ListGroup.Item>
+          <ListGroup.Item className='list-color'>Sunrise: {weatherData.sunrise} / Sunset: {weatherData.sunset}</ListGroup.Item>
+          <ListGroup.Item className='list-color'>{weatherData.windKph} km/h wind, direction {weatherData.windDir}</ListGroup.Item>
+        </ListGroup>
       }
-    </>
+    </div>
   )
 }
 
