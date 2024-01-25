@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Geo } from 'react-bootstrap-icons'
 
 import Search from './Search'
-import CurrentWeatherList from './CurrentWeatherList'
+import CurrentWeather from './CurrentWeather'
+import Forecast from './Forecast'
 
 import './App.css'
 
@@ -13,7 +14,7 @@ function App() {
 	const [location, setLocation] = useState('')
 	const [formData, setFormData] = useState('')
 	const [weatherData, setWeatherData] = useState(null)
-	const [forecastData, setForecastData] = useState([])
+	const [forecastData, setForecastData] = useState(null)
 
 	useEffect(() => {
 		fetch(`https://api.weatherapi.com/v1/forecast.json?key=69c788fac5954f2cb8e94409242001&q=${location}&days=3&aqi=no&alerts=no`)
@@ -39,7 +40,7 @@ function App() {
 				}
 				const forecast = data.forecast.forecastday.map(element => {
 					return {
-						date: element.date_epoch,
+						date: new Date(element.date_epoch *1000).toDateString(),
 						condition: element.day.condition.icon,
 						maxTemp: element.day.maxtemp_c,
 						minTemp: element.day.mintemp_c
@@ -50,7 +51,7 @@ function App() {
 		})
 	}, [formData])
 
-	// console.log(forecastData)
+	console.log(forecastData)
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -68,8 +69,13 @@ function App() {
 				handleSubmit={handleSubmit}
 			/>      
 			{weatherData && 
-				<CurrentWeatherList
+				<CurrentWeather
 					weatherData={weatherData}
+				/>
+			}
+			{forecastData && 
+				<Forecast 
+					forecastData={forecastData}
 				/>
 			}
 		</div>

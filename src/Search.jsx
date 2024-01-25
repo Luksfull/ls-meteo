@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Form from 'react-bootstrap/Form'
@@ -22,7 +21,7 @@ function Search({handleSubmit, handleChange}) {
 						size='md'
 						className='search-bar'
 					/>
-					<Button type='submit' variant='outline-info'>Submit</Button>
+					<Button type='submit' variant='outline' className='submit-btn'>Submit</Button>
 				</Form.Group>        
 		</Form>
 	)
