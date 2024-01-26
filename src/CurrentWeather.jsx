@@ -17,7 +17,7 @@ function CurrentWeather({weatherData}) {
 				{weatherData.condition}
 				<img className='condition-icon' src={`${weatherData.conditionIcon}`} />
 			</ListGroup.Item>
-			<ListGroup.Item className='list-item'>Sunrise: {weatherData.sunrise} / Sunset: {weatherData.sunset}</ListGroup.Item>
+			<ListGroup.Item className='list-item sun-item'><span className='sun'>Sunrise: {weatherData.sunrise}</span><span className='sun'>Sunset: {weatherData.sunset}</span></ListGroup.Item>
 			<ListGroup.Item className='list-item'>{weatherData.windKph} km/h wind, direction {weatherData.windDir}</ListGroup.Item>
 		</ListGroup>
 	)
