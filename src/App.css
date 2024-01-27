@@ -6,7 +6,11 @@
   justify-content: center;
 }
 
-body, .body, .list {
+body {
+	background: #828991;
+}
+
+.list {
   background: linear-gradient(#FAF5FF, #494f57);
 }
 
@@ -16,23 +20,13 @@ body, .body, .list {
   min-height: 100vh;
   width: 80%;
   align-items: center;
-  border: 1px solid red;
 	font-family: 'Libre Baskerville', serif;
 	padding: 1.2em;
 }
 
 /** Form **/
 
-.search-bar {
-	color: #8A61DE;
-}
-
-.search-bar::placeholder {
-	color: #8A61DE;
-}
-
 .submit-btn {
-	color: #8A61DE;
 	background: transparent;
 	border: none;
 	margin-top: 1em;
@@ -40,7 +34,7 @@ body, .body, .list {
 
 .submit-btn:focus, .submit-btn:active {
 	outline: none !important;
-	color: #8A61DE;
+	color: #FAF5FF;
 	background: transparent;
 	border: none;
 }
@@ -50,6 +44,17 @@ body, .body, .list {
 		font-size: 0.9em;
 	}
 }
+
+@media (max-height: 750px) {
+	.label, .submit-btn, .search-bar {
+		font-size: 0.9em;
+	}
+	
+	.submit-btn {
+		margin-top: 0.4em;
+	}
+}
+
 /** CurrentWeatherList **/
 
 .list-item {
@@ -63,6 +68,12 @@ body, .body, .list {
 @media (max-width: 340px) {
 	.list-item {
 		font-size: 0.9em;
+	}
+}
+
+@media (max-height: 750px) {
+	.list-item {
+		font-size: 0.8em;
 	}
 }
 
@@ -96,21 +107,24 @@ body, .body, .list {
 }
 
 .forecast-item {
+	border: none;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
+	color: black;
 }
 
 .min-max-container {
 	display: flex;
+	justify-content: right;
 	gap: 5px;
 }
 
 .min-max {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: right;
 }
 
 .min-max-text {
@@ -121,10 +135,45 @@ body, .body, .list {
 	.min-max-value {
 		font-size: 0.8em;
 	}
-}
 
-@media (max-width: 340px) {
 	.forecast-date {
 		font-size: 0.8em;
 	}
+}
+
+@media (max-height: 750px) {
+	.forecast-item {
+		font-size: 1em;
+	}
+
+	.forecast-container {
+		margin-top: 1.8em;
+	}
+}
+
+@media (max-height: 680px) {
+	.forecast-container {
+		margin-top: 1em;
+	}
+}
+
+/** HourForecast **/
+
+.hour-forecast-container {
+	width: 100%;
+}
+
+.hour-forecast-item {
+	max-height: 5em;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: linear-gradient(#FAF5FF, #494f57);
+	border: none;
+	font-size: 0.8em;
+}
+
+.hour-condition {
+	width: 3em
 }

@@ -11,7 +11,7 @@ function Search({handleSubmit, handleChange}) {
 	return (
 		<Form onSubmit={handleSubmit}>
 				<Form.Group className='form-group'>
-					<Form.Label><Geo /> Location <Geo /></Form.Label>
+					<Form.Label className='label'><Geo /> Location <Geo /></Form.Label>
 					<Form.Control 
 						type='text' 
 						placeholder='Enter location' 

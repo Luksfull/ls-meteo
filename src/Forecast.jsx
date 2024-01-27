@@ -1,32 +1,58 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import ListGroup from 'react-bootstrap/ListGroup'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 function Forecast({forecastData}) {
 	
 
 	return (
-		<ListGroup horizontal className='forecast-container'>
+		<>
 			{forecastData.map(element => {
 				return (
-					<ListGroup.Item className='forecast-item list'>
-						<div className='forecast-date'>{element.date}</div>
-						<img className='condition-icon' src={element.condition}/>
-						<div className='min-max-container'>
-							<div className='min-max'>
-								<span className='min-max-text'>Max</span>
-								<span className='min-max-value'>{element.maxTemp}</span>
+					<Dropdown className='forecast-container'>
+						<Dropdown.Toggle className='forecast-item list'>
+							<div className='forecast-date'>{element.date.slice(0, -4)}</div>
+							<img className='condition-icon' src={element.condition}/>
+							<div className='min-max-container'>
+								<div className='min-max'>
+									<span className='min-max-text'>Max</span>
+									<span className='min-max-value'>{element.maxTemp}°</span>
+								</div>
+								<div className='min-max'>
+									<span className='min-max-text'>Min</span>
+									<span className='min-max-value'>{element.minTemp}°</span>
+								</div>
 							</div>
-							<div className='min-max'>
-								<span className='min-max-text'>Min</span>
-								<span className='min-max-value'>{element.minTemp}</span>
-							</div>
-						</div>
-					</ListGroup.Item>
+						</Dropdown.Toggle>
+						<Dropdown.Menu className='hour-forecast-container'>
+							{element.hour.map(hour => (
+								<Dropdown.ItemText className='hour-forecast-item'>
+									<span>{hour.time.slice(-5)}</span>
+									<img src={hour.condition} className='hour-condition' />
+									<span>{hour.temperatureCelsius}°</span>
+								</Dropdown.ItemText>
+							))}
+						</Dropdown.Menu>
+					</Dropdown>
 				)
 			})}
-		</ListGroup>
+		</>
 	)
 }
 
 export default Forecast
+
+{/* <Dropdown.Menu>
+{forecastData.map(element => {
+	return (
+		element.hour.map(hour => {
+			<Dropdown.ItemText>
+				<span>{hour.time}</span>
+				<img src={hour.condition} />
+				<span>{hour.temperatureCelsius}</span>
+			</Dropdown.ItemText>
+		})
+	)
+})}
+</Dropdown.Menu> */}

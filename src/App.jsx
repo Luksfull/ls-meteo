@@ -17,6 +17,7 @@ function App() {
 	const [forecastData, setForecastData] = useState(null)
 
 	useEffect(() => {
+		// apikey = 69c788fac5954f2cb8e94409242001
 		fetch(`https://api.weatherapi.com/v1/forecast.json?key=69c788fac5954f2cb8e94409242001&q=${location}&days=3&aqi=no&alerts=no`)
 			.then(res => {
 				if(!res.ok) {
@@ -43,7 +44,14 @@ function App() {
 						date: new Date(element.date_epoch *1000).toDateString(),
 						condition: element.day.condition.icon,
 						maxTemp: element.day.maxtemp_c,
-						minTemp: element.day.mintemp_c
+						minTemp: element.day.mintemp_c,
+						hour: element.hour.map(element => {
+							return {
+								time: element.time,
+								temperatureCelsius: element.temp_c,
+								condition: element.condition.icon
+							}
+						})
 					}
 				})
 				setWeatherData(weather)
