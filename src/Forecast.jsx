@@ -30,7 +30,7 @@ function Forecast({forecastData}) {
 								<Dropdown.ItemText className='hour-forecast-item'>
 									<span>{hour.time.slice(-5)}</span>
 									<img src={hour.condition} className='hour-condition' />
-									<span>{hour.temperatureCelsius}°</span>
+									<span className='hour-temp'>{hour.temperatureCelsius}°</span>
 								</Dropdown.ItemText>
 							))}
 						</Dropdown.Menu>

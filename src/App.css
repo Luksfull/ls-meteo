@@ -39,6 +39,10 @@ body {
 	border: none;
 }
 
+.submit-btn:hover {
+	color: #FAF5FF;
+}
+
 @media (max-width: 340px) {
 	.form-group, .submit-btn, .search-bar {
 		font-size: 0.9em;
@@ -161,6 +165,8 @@ body {
 
 .hour-forecast-container {
 	width: 100%;
+	padding: 0;
+	border: none;
 }
 
 .hour-forecast-item {
@@ -172,8 +178,14 @@ body {
 	background: linear-gradient(#FAF5FF, #494f57);
 	border: none;
 	font-size: 0.8em;
+	border-radius: 5px;
 }
 
 .hour-condition {
-	width: 3em
+	width: 3em;
+	justify-self: center;
+}
+
+.hour-temp {
+	min-width: 1.7em;
 }
