@@ -93,7 +93,7 @@ function App() {
 
 	return (
 		<div className='body'>
-			
+			<h4 className='brand'>Meteo-gray</h4>
 			<GeoAltFill onClick={handleClick} className='get-location-btn'/>
 			<Search 
 				handleChange={handleChange}
