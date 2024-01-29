@@ -189,3 +189,26 @@ body {
 .hour-temp {
 	min-width: 1.7em;
 }
+
+/** Location Button **/ 
+
+.get-location-btn {
+	width: 1em;
+	height: 1em;
+	font-size: 2em;
+	color: #743939;
+	position: fixed;
+	top: 18px;
+	right: 10px;
+	cursor: pointer;
+}
+
+@media (min-width: 770px) {
+	.get-location-btn {
+		font-size: 4em;
+	}
+}
+
+.get-location-btn:hover {
+	color: #ccadad;
+}

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Geo } from 'react-bootstrap-icons'
+import Button from 'react-bootstrap/Button'
+import { GeoAltFill } from 'react-bootstrap-icons'
 
 import Search from './Search'
 import CurrentWeather from './CurrentWeather'
@@ -15,6 +16,8 @@ function App() {
 	const [formData, setFormData] = useState('')
 	const [weatherData, setWeatherData] = useState(null)
 	const [forecastData, setForecastData] = useState(null)
+
+	const [isClicked, setIsClicked] = useState(false)
 
 	useEffect(() => {
 		// apikey = 69c788fac5954f2cb8e94409242001
@@ -57,21 +60,41 @@ function App() {
 				setWeatherData(weather)
 				setForecastData(forecast)
 		})
-	}, [formData])
-
+	}, [location])
+	
 	console.log(forecastData)
+
+	useEffect(() => {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					setLocation(`${position.coords.latitude},${position.coords.longitude}`)
+					console.log(location)
+				}
+			)
+		} else {
+			console.error('Geolocation is not supported in this browser')
+		}
+	}, [isClicked])
+
+	const handleClick = () => {
+		setIsClicked(prevValue => !prevValue)
+		console.log(isClicked)
+	}
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		setFormData(location)
+		setLocation(formData)
 	}
 
 	const handleChange = e => {
-		setLocation(e.target.value)
+		setFormData(e.target.value)
 	}
 
 	return (
 		<div className='body'>
+			
+			<GeoAltFill onClick={handleClick} className='get-location-btn'/>
 			<Search 
 				handleChange={handleChange}
 				handleSubmit={handleSubmit}
