@@ -1,31 +1,48 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import { Geo } from 'react-bootstrap-icons'
-
 import './App.css'
 
-function Search({handleSubmit, handleChange}) {
+import { useState } from 'react'
+import { AsyncPaginate } from 'react-select-async-paginate'
+import { GEO_API_URL, geoApiOptions } from './Api'
+
+function Search({onSearchChange}) {
+	
+	const [search, setSearch] = useState(null)
+
+	const loadOptions = (inputValue) => {
+		return fetch (
+				`${GEO_API_URL}/cities?minPopulation=40000&namePrefix=${inputValue}`, geoApiOptions
+		)
+				.then(res => res.json())
+				.then(res => {
+					return {
+						options: res.data.map(city => {
+							return {
+								label: `${city.name}, ${city.countryCode}`,
+							}
+						})
+					}
+				})
+				.catch(err => console.error(err))
+	}
+
+	const handleChange = (searchData) => {
+		setSearch(searchData)
+		onSearchChange(searchData)
+	}
 
 	return (
-		<Form onSubmit={handleSubmit}>
-				<Form.Group className='form-group'>
-					<Form.Label className='label'><Geo /> Location <Geo /></Form.Label>
-					<Form.Control 
-						type='text' 
-						placeholder='Enter location' 
-						id='location'
-						name='location'
-						onChange={handleChange}
-						size='md'
-						className='search-bar'
-					/>
-					<Button type='submit' variant='outline' className='submit-btn'>Submit</Button>
-				</Form.Group>        
-		</Form>
+		<AsyncPaginate 
+			placeholder='Search for location'
+			debounceTimeout={500}
+			value={search}
+			onChange={handleChange}
+			loadOptions={loadOptions}
+		/>
 	)
 
 }
 
 export default Search
+
+
