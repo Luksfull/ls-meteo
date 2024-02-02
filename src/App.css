@@ -8,6 +8,7 @@
 
 body {
 	background: #828991;
+	user-select: none;
 }
 
 .list {
