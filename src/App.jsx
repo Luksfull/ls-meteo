@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Button from 'react-bootstrap/Button'
 import { GeoAltFill } from 'react-bootstrap-icons'
 
+import { WEATHER_API_URL, weatherApiOptions } from './WeatherApi';
 import Search from './Search'
 import CurrentWeather from './CurrentWeather'
 import Forecast from './Forecast'
@@ -19,16 +19,9 @@ function App() {
 	const [isClicked, setIsClicked] = useState(false)
 
 	useEffect(() => {
-		// apikey = 69c788fac5954f2cb8e94409242001
-		fetch(`https://api.weatherapi.com/v1/forecast.json?key=69c788fac5954f2cb8e94409242001&q=${location}&days=3&aqi=no&alerts=no`)
-			.then(res => {
-				if(!res.ok) {
-					throw Error('weather data not available')
-				}
-				return res.json()
-			})
+		fetch(`${WEATHER_API_URL}&q=${location}&days=3&aqi=no&alerts=no`, weatherApiOptions)
+			.then(res => res.json())
 			.then(data => {
-				// console.log(data)
 				const weather = {
 					location: data.location.name,
 					date: new Date(data.forecast.forecastday[0].date_epoch * 1000).toDateString(),
@@ -51,7 +44,8 @@ function App() {
 							return {
 								time: element.time,
 								temperatureCelsius: element.temp_c,
-								condition: element.condition.icon
+								condition: element.condition.icon,
+								rainChance: element.chance_of_rain
 							}
 						})
 					}
@@ -59,6 +53,7 @@ function App() {
 				setWeatherData(weather)
 				setForecastData(forecast)
 		})
+		.catch(err => console.error(err))
 	}, [location])
 
 	useEffect(() => {
@@ -66,7 +61,6 @@ function App() {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
 					setLocation(`${position.coords.latitude},${position.coords.longitude}`)
-					console.log(location)
 				}
 			)
 		} else {

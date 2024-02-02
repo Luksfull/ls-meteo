@@ -30,6 +30,7 @@ function Forecast({forecastData}) {
 								<Dropdown.ItemText className='hour-forecast-item'>
 									<span>{hour.time.slice(-5)}</span>
 									<img src={hour.condition} className='hour-condition' />
+									<span>💧{hour.rainChance}%</span>
 									<span className='hour-temp'>{hour.temperatureCelsius}°</span>
 								</Dropdown.ItemText>
 							))}
@@ -42,17 +43,3 @@ function Forecast({forecastData}) {
 }
 
 export default Forecast
-
-{/* <Dropdown.Menu>
-{forecastData.map(element => {
-	return (
-		element.hour.map(hour => {
-			<Dropdown.ItemText>
-				<span>{hour.time}</span>
-				<img src={hour.condition} />
-				<span>{hour.temperatureCelsius}</span>
-			</Dropdown.ItemText>
-		})
-	)
-})}
-</Dropdown.Menu> */}

@@ -12,6 +12,7 @@ body {
 
 .list {
   background: linear-gradient(#FAF5FF, #494f57);
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .body {
@@ -59,43 +60,18 @@ body {
 	}
 }
 
-/** Form **/
+/** Search **/
 
-.label, .submit-btn {
-	font-weight: 700;
-	font-size: 1em;
+.search-bar {
+	margin-bottom: 1em;
+	min-width: 200px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.submit-btn {
-	background: transparent;
-	border: none;
-	margin-top: 1em;
-}
-
-.submit-btn:focus, .submit-btn:active {
-	outline: none !important;
-	color: #FAF5FF;
-	background: transparent;
-	border: none;
-}
-
-.submit-btn:hover {
-	color: #FAF5FF;
-}
-
-@media (max-width: 340px) {
-	.form-group, .submit-btn, .search-bar {
-		font-size: 0.9em;
-	}
-}
-
-@media (max-height: 750px) {
-	.label, .submit-btn, .search-bar {
-		font-size: 0.9em;
-	}
-	
-	.submit-btn {
-		margin-top: 0.4em;
+@media (max-width: 380px) {
+	.search-bar {
+		font-size: 0.8em;
+		min-width: fit-content;
 	}
 }
 
@@ -148,6 +124,7 @@ body {
 	min-width: fit-content;
 	max-width: 500px;
 	font-size: 0.8em;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .forecast-item {
