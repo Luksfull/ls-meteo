@@ -9,3 +9,6 @@ The top right button gets the forecast for your current location, as on start.
 Weather forecasts are created using the API provided by https://www.weatherapi.com/.
 Autocomplete feature is created using the GeoDB Cities API https://rapidapi.com/wirefreethought/api/geodb-cities/.
 Icon by Weather icons created by Freepik - Flaticon.
+
+App deployed with Netlify.
+Live site: https://meteo-gray.netlify.app/ 
