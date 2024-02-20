@@ -13,5 +13,5 @@ Icon by Weather icons created by Freepik - Flaticon.
 App deployed with Netlify.
 Live site: https://meteo-gray.netlify.app/ 
 
-[View](/images/PhoneView.jpg)
-[Hour Forecast](/images/HourForecast.jpg)
+![View](/images/PhoneView.jpg)
+![Hour Forecast](/images/HourForecast.jpg)
